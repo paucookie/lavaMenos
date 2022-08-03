@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+@import 'var';
+
+
+/* ----------Cuerpo de la página------ */
+body { 
+    background-color: map-get($map: $colors, $key: grey);
+    font-family: 'Rubik', sans-serif;
+}
+
+/* ------Menú de navegación------ */
+.navbar{
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    div{
+        a img{
+            height: 40px;
+        }
+    }
+}
+
+.template-card{
+    max-width: 1200px;
+    margin: auto;
+    align-items: center;
+
+}
+
+.cotizacion-section{
+    margin-top: 5rem;
+
+}
