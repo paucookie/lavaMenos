@@ -8,17 +8,19 @@
 
 /* ----------Cuerpo de la página------ */
 body { 
-    background-color: map-get($map: $colors, $key: grey);
+    background-color: map-get($map: $colors, $key: light);
     font-family: 'Rubik', sans-serif;
 }
 
 /* ------Menú de navegación------ */
 .navbar{
-    background: rgba( 255, 255, 255, 0.25 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     div{
         a img{
             height: 40px;
@@ -26,12 +28,25 @@ body {
     }
 }
 
-.template-card{
+.navbar > .container,
+.navbar > .container-fluid,
+.navbar > .container-sm,
+.navbar > .container-md,
+.navbar > .container-lg,
+.navbar > .container-xl,
+.navbar > .container-xxl {
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* .template-card{
     max-width: 1200px;
     margin: auto;
     align-items: center;
 
-}
+} */
 
 .cotizacion-section{
     margin-top: 5rem;
