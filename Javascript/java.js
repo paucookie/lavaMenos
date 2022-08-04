@@ -75,7 +75,7 @@ const laundry = [
 
 let renderLaundry = document.createElement('div');
 
-laundry.forEach (product=> {
+laundry.forEach (product => {
     renderLaundry.innerHTML=`<div class= "card">
                             <img src = "${product.ThumbnailUrl}" alt= "${product.altImg}" width= "200px"/>
                             <h5>${product.title}</h5>
@@ -86,8 +86,6 @@ laundry.forEach (product=> {
     
     document.body.appendChild(renderLaundry); 
 })
-
-console.log(renderLaundry);
 
 const clone = renderLaundry.cloneNode ( true )
 fragment.appendChild(clone)
