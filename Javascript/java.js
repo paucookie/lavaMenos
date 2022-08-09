@@ -1,23 +1,27 @@
 /* --------Constantes -----------*/
 //Constante cards que lo buscamos en el documento por medio del id
-const cards = document.getElementById( 'cards' )
+const cards = document.getElementById( 'cards' );
 //Constante items que lo buscamos en el documento por medio del id
-const items = document.getElementById( 'items' )
+const items = document.getElementById( 'items' );
 //Constante footer que lo buscamos en el documento por medio del id
-const footer = document.getElementById( 'footer' )
-
+const footer = document.getElementById( 'footer' );
+//Constante de div donde se colocaran la galería de servicios
+const laundryCard = document.getElementById('laundry-card');
 
 //Constante templateFooter
-const templateFooter = document.getElementById( 'template-footer' ).content
+const templateFooter = document.getElementById( 'template-footer' ).content;
 //Constante templateCarrito
-const templateCarrito = document.getElementById( 'template-carrito' ).content
+const templateCarrito = document.getElementById( 'template-carrito' ).content;
 //Constante de una memoria fragment
-const fragment = document.createDocumentFragment()
+const fragment = document.createDocumentFragment();
+
+const agregar = document.querySelector('.btn-agregar');
+
 
 
 /* -----Declaraciones de variables ------ */
 //Carrito
-let carrito = {}
+let carrito = {};
 
 /* ------Array de productos ----- */
 const laundry = [
@@ -72,23 +76,63 @@ const laundry = [
     }
 ] 
 
-
+/* Crea las tarjetas de los servicios */
 let renderLaundry = document.createElement('div');
 
 laundry.forEach (product => {
-    renderLaundry.innerHTML=`<div class= "card">
+    laundryCard.innerHTML+=`<div class= "tarjeta">
                             <img src = "${product.ThumbnailUrl}" alt= "${product.altImg}" width= "200px"/>
+                            <button class="btn-agregar" data-id="${product.id}">Agregar</button>
                             <h5>${product.title}</h5>
-                            <p>${product.precio}</p>
-                            <button class="btn btn-dark" id="${product.id}">Agregar</button>
+                            <p>$${product.precio}</p>
                             </div>`;
         
     
-    document.body.appendChild(renderLaundry); 
+    laundryCard.appendChild(renderLaundry);
+    
 })
 
-const clone = renderLaundry.cloneNode ( true )
-fragment.appendChild(clone)
+//eventos
 
-cards.appendChild(fragment)
 
+// Función de  poner las cosas en el carrito
+
+
+const addCarrito = (e) =>{
+    console.log(e.target);
+    if(e.target.classList.contains('btn-agregar')){
+        setCarrito(e.target.parentElement)
+    }
+}
+
+const setCarrito = objeto =>{
+    const product ={
+        id: objeto.querySelector('.btn-agregar').dataset.id,
+        title: objeto.querySelector('h5').textContent,
+        precio: objeto.querySelector('p').textContent,
+        cantidad: 1
+    }
+
+    if (carrito.hasOwnProperty('product.id')) {
+        product.cantidad = cantidad [product.id] + 1
+    }
+
+    carrito[product.id] = {...product};
+    renderCarrito();
+}
+
+const renderCarrito = () =>{
+    items.innerHTML = ' ';
+    Object.values(carrito).forEach(product =>
+        templateCarrito.querySelector('th').textContent = product.id,
+        templateCarrito.querySelector('td')[0].textContent = product.title,
+        templateCarrito.querySelector('td')[1].textContent = product.cantidad,
+        templateCarrito.querySelector('.btn-danger').dataset.id = product.id,
+        templateCarrito.querySelector('.res-cant-prec').textContent = product.cantidad * product.precio,
+        )
+}
+
+
+agregar.addEventListener('click', e => {
+    addCarrito(e);
+})

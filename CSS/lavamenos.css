@@ -52,15 +52,80 @@ body {
           justify-content: space-between;
 }
 
-.template-card {
-  max-width: 1200px;
-  margin: auto;
+/* ------Sección Cotización ------- */
+.cotizacion-section {
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "nom nom nom nom" "cot prod prod prod" "cot prod prod prod";
+  margin: 2rem;
+}
+
+.cotizacion-section h2 {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
+  grid-area: nom;
+}
+
+.cotizacion-precios {
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  grid-area: cot;
+}
+
+#laundry-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100vw;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  max-width: 1000px;
+  margin: 0 auto;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 3;
+  grid-area: prod;
+}
+
+.tarjeta {
+  width: 250px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  text-align: center;
 }
 
-.cotizacion-section {
-  margin-top: 5rem;
+.tarjeta img {
+  width: 200px;
+  margin-top: 1rem;
+}
+
+.tarjeta .btn-agregar {
+  padding: .5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-top: -1rem;
+  background-color: #ff9e1b;
+  border: none;
+}
+
+.tarjeta h5 {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .cotizacion-section {
+        grid-template-areas: "nom" "prod" "cot";
+  }
 }
 /*# sourceMappingURL=lavamenos.css.map */

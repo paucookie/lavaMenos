@@ -48,99 +48,66 @@
     <!-- Sección Cotización de Servicios -->
     <section class="cotizacion-section">
         <h2>Realiza tu Cotización</h2>
-
-        <!-- Tabla -->
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Item</th>
-              <th scope="col">Cantidad</th>
-              <th scope="col">Servicio</th>
-              <th scope="col">Total</th>
-            </tr>
-          </thead>
-          <tbody id="items"></tbody>
-          <tfoot>
-            <tr id="footer">
-              <th scope="row" colspan="5">Carrito vacío - comience a cotizar!</th>
-            </tr>
-          </tfoot>
-        </table>
-        
-        <!-- Items -->
-        <div class="row" id="cards">
-        </div>
-
-        <!-- Footer -->
-        <template id="template-footer">
-          <th scope="row" colspan="2">Total productos</th>
-          <td>10</td>
-          <td>
-              <button class="btn btn-danger btn-sm" id="vaciar-carrito">
-                  vaciar todo
-              </button>
-          </td>
-          <td class="font-weight-bold">$ <span>5000</span></td>
-      </template>
-
-      <!-- Carrito vacío -->
-      <template id="template-carrito">
-        <tr>
-          <th scope="row">id</th>
-          <td>Café</td>
-          <td>1</td>
-          <td>
-              <button class="btn btn-info btn-sm">
-                  +
-              </button>
-              <button class="btn btn-danger btn-sm">
-                  -
-              </button>
-          </td>
-          <td>$ <span>500</span></td>
-        </tr>
-      </template>
-
-      <div class="laundry-card">
-        
-      </div>
-        <!-- Tarjeta de productos -->
-        <!-- <div id="laundry-card">
-          <div class= "card">
-            <img src = " " alt= " " width= "200px"/>
-            <h5>title</h5>
-            <p>precio</p>
-            <button class="btn btn-dark">Agregar</button>
-          </div>
-        </div> -->
-
-
-
-
-        <!-- <template id="template-card">
-            <div class="col-12 mb-2 col-md-4">
-              <div class="card">
-                <img src="" alt="" class="card-img-top">
-                <div class="card-body p-4">
-                  <h5>Titulo</h5>
-                  <p>precio</p>
-                  <button class="btn btn-dark">Agregar</button>
-                </div>
-              </div>
+        <div class="cotizacion-precios">
+            <!-- Tabla -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Servicio</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+            <tbody id="items"></tbody>
+                <tfoot>
+                    <tr id="footer">
+                        <th scope="row" colspan="5">Comienza a cotizar!</th>
+                    </tr>
+                </tfoot>
+            </table>
+            <!-- Items -->
+            <div class="row" id="cards"> 
             </div>
-        </template> -->
+            <!-- Footer -->
+            <template id="template-footer">
+                <th scope="row" colspan="2">Total productos</th>
+                <td>10</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" id="vaciar-carrito">
+                    vaciar todo
+                    </button>
+                </td>
+                <td class="font-weight-bold">$ <span>5000</span></td>
+            </template>
+            <!-- Carrito vacío -->
+            <template id="template-carrito">
+                <tr>
+                    <th scope="row">id</th>
+                    <td>Café</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <button class="btn btn-danger btn-sm">
+                        <span class="material-symbols-outlined">delete
+                        </span>
+                    </button>
+                    <td>$ <span class="res-cant-prec">500</span></td>
+                </tr>
+            </template>
+        </div>
+        
+
+        <div id="laundry-card">
+        </div>
 
 
     </section>
 
-    <main>
-        
-    </main>
 
-
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#121e4d" fill-opacity="1" d="M0,64L48,90.7C96,117,192,171,288,176C384,181,480,139,576,138.7C672,139,768,181,864,181.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-    
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1440 320">
+      <path fill="#417ec7" fill-opacity="1" d="M0,96L48,101.3C96,107,192,117,288,144C384,171,480,213,576,202.7C672,192,768,128,864,117.3C960,107,1056,149,1152,165.3C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+    </svg>
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
