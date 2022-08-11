@@ -15,7 +15,6 @@ const templateCarrito = document.getElementById( 'template-carrito' ).content;
 //Constante de una memoria fragment
 const fragment = document.createDocumentFragment();
 
-const agregar = document.querySelector('.btn-agregar');
 
 
 
@@ -76,6 +75,144 @@ const laundry = [
     }
 ] 
 
+
+
+//eventos
+cards.addEventListener('click', e => {
+    //función par agregar al carrito
+    addCarrito(e)
+})
+
+items.addEventListener('click', e =>{
+    btnAccion(e)
+})
+
+// Función de  poner las cosas en el carrito
+
+//constante de addCarrito que atrape un elemento
+const addCarrito = e =>{
+    //si le doy click en el botón de agregar, hacemos una acción
+    if(e.target.classList.contains('btn-agregar')) {
+        //movemos toda la info a setCarrito
+        setCarrito(e.target.parentElement)
+    }
+    //detener cualquier otro evento que se pueda desarrollar 
+    e.stopPropagation()
+}
+
+const setCarrito = objeto => {
+    //objeto de un producto
+    const product = {
+        //contiene: id, title, precio y cantidad (empieza en 1)
+        id: objeto.querySelector('.btn-agregar').dataset.id,
+        title: objeto.querySelector('h5').textContent,
+        precio: objeto.querySelector('p').textContent,
+        cantidad: 1
+    }
+
+    // si carrito tiene product id
+    if (carrito.hasOwnProperty(product.id)){
+        //si se esta duplicando el producto id aumenta 1 a cantidad
+        product.cantidad = carrito[product.id].cantidad + 1
+    }
+
+    //estamos haciendo una copia de lo que hay en producto
+    carrito[product.id] = {...product}
+    crearCarrito()
+
+}
+
+const crearCarrito = () => {
+    //el carrito comienza vacío
+    items.innerHTML = ''
+    //valores del carrito
+    Object.values(carrito).forEach(producto => {
+        /* id del producto */
+        templateCarrito.querySelector('th').textContent = producto.id
+        /* title pero entramos a querySelectorAll 0 para entrar al primer td */
+        templateCarrito.querySelectorAll('td')[0].textContent = producto.title
+        /* cantidad pero entramos a querySelectorAll 1 para entrar al segundo td */
+        templateCarrito.querySelectorAll('td')[1].textContent = producto.cantidad
+        /* boton menos */
+        templateCarrito.querySelector('.btn-danger').dataset.id = producto.id
+        /* precio va a multiplicar la cantidad por el precio*/
+        templateCarrito.querySelector('span').textContent = producto.cantidad * producto.precio
+
+        const clone = templateCarrito.cloneNode(true)
+        fragment.appendChild(clone)
+    })
+
+    items.appendChild(fragment)
+
+    /* Cambiar footer */
+    cambiarFooter()
+}
+
+const cambiarFooter = () => {
+    footer.innerHTML = ''
+    //si el carrito está vacío
+    if(Object.keys(carrito).length === 0){
+        footer.innerHTML = `
+        <th scope="row" colspan="5">Comience a cotizar!</th>
+        `
+        return
+    }
+
+    /* sumando cantidad */
+    const nCantidad = Object.values(carrito).reduce((acc, { cantidad }) => acc + cantidad, 0)
+    /* multiplicando cantidad por precio */
+    const nPrecio = Object.values(carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio,0)
+
+    //para que aparezca
+    templateFooter.querySelectorAll('td')[0].textContent = nCantidad
+    templateFooter.querySelector('span').textContent = nPrecio
+
+    const clone = templateFooter.cloneNode(true)
+    fragment.appendChild(clone)
+    footer.appendChild(fragment)
+
+    /* Botón vaciar carrito */
+    const btnVaciar = document.getElementById('vaciar-carrito')
+    btnVaciar.addEventListener('click', () => {
+        carrito = {}
+        crearCarrito()
+    })
+}
+
+/* boton accion */
+
+const btnAccion = e => {
+    console.log(e.target)
+    //si la clase es btn info + (acción de aumentar)
+    if(e.target.classList.contains('btn-agregar')) {
+        carrito[e.target.dataset.id] 
+        const producto = carrito[e.target.dataset.id] 
+        producto.cantidad++
+        carrito[e.target.dataset.id] = {...producto}
+        crearCarrito()
+    }
+
+    //si la clase es btn danger - (acción de restar)
+    if(e.target.classList.contains('btn-danger')) {
+        const producto = carrito[e.target.dataset.id] 
+        producto.cantidad--
+        //desaparecer el producto
+        if(producto.cantidad == 0) {
+            delete carrito[e.target.dataset.id]
+        }
+        crearCarrito()
+    }
+
+    e.stopPropagation()
+
+
+
+}
+
+
+
+console.log(addCarrito);
+
 /* Crea las tarjetas de los servicios */
 let renderLaundry = document.createElement('div');
 
@@ -90,49 +227,4 @@ laundry.forEach (product => {
     
     laundryCard.appendChild(renderLaundry);
     
-})
-
-//eventos
-
-
-// Función de  poner las cosas en el carrito
-
-
-const addCarrito = (e) =>{
-    console.log(e.target);
-    if(e.target.classList.contains('btn-agregar')){
-        setCarrito(e.target.parentElement)
-    }
-}
-
-const setCarrito = objeto =>{
-    const product ={
-        id: objeto.querySelector('.btn-agregar').dataset.id,
-        title: objeto.querySelector('h5').textContent,
-        precio: objeto.querySelector('p').textContent,
-        cantidad: 1
-    }
-
-    if (carrito.hasOwnProperty('product.id')) {
-        product.cantidad = cantidad [product.id] + 1
-    }
-
-    carrito[product.id] = {...product};
-    renderCarrito();
-}
-
-const renderCarrito = () =>{
-    items.innerHTML = ' ';
-    Object.values(carrito).forEach(product =>
-        templateCarrito.querySelector('th').textContent = product.id,
-        templateCarrito.querySelector('td')[0].textContent = product.title,
-        templateCarrito.querySelector('td')[1].textContent = product.cantidad,
-        templateCarrito.querySelector('.btn-danger').dataset.id = product.id,
-        templateCarrito.querySelector('.res-cant-prec').textContent = product.cantidad * product.precio,
-        )
-}
-
-
-agregar.addEventListener('click', e => {
-    addCarrito(e);
 })
