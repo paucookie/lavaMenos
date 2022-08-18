@@ -77,7 +77,7 @@ const laundry = [
 ] 
 
 localStorage.setItem('laundry',JSON.stringify(laundry));
-localStorage.setItem('carrito',JSON.stringify(carrito));
+
 
 //eventos
 laundryCard.addEventListener('click', e => {
@@ -129,18 +129,18 @@ const crearCarrito = () => {
     //el carrito comienza vacío
     items.innerHTML = ''
     //valores del carrito
-    Object.values(carrito).forEach(producto => {
+    Object.values(carrito).forEach(product => {
         /* id del producto */
-        templateCarrito.querySelector('th').textContent = producto.id
+        templateCarrito.querySelector('th').textContent = product.id
         /* title pero entramos a querySelectorAll 0 para entrar al primer td */
-        templateCarrito.querySelectorAll('td')[0].textContent = producto.title
+        templateCarrito.querySelectorAll('td')[0].textContent = product.title
         /* cantidad pero entramos a querySelectorAll 1 para entrar al segundo td */
-        templateCarrito.querySelectorAll('td')[1].textContent = producto.cantidad
-        templateCarrito.querySelectorAll('td')[2].textContent = producto.precio
+        templateCarrito.querySelectorAll('td')[1].textContent = product.cantidad
+        templateCarrito.querySelectorAll('td')[2].textContent = product.precio
         /* boton menos */
-        templateCarrito.querySelector('.btn-danger').dataset.id = producto.id
+        templateCarrito.querySelector('.material-symbols-outlined').dataset.id = product.id
         /* precio va a multiplicar la cantidad por el precio*/
-        templateCarrito.querySelector('span').textContent = producto.cantidad * producto.precio.split('$').join('')
+        templateCarrito.querySelector('span').textContent = product.cantidad * product.precio.split('$').join('')
 
         const clone = templateCarrito.cloneNode(true)
         fragment.appendChild(clone)
@@ -186,36 +186,34 @@ const cambiarFooter = () => {
 /* boton accion */
 
 const btnAccion = e => {
-    console.log(e.target)
+    console.log(e.target.id);
     //si la clase es btn info + (acción de aumentar)
     if(e.target.classList.contains('btn-agregar')) {
         carrito[e.target.dataset.id] 
-        const producto = carrito[e.target.dataset.id] 
-        producto.cantidad++
-        carrito[e.target.dataset.id] = {...producto}
+        const product = carrito[e.target.dataset.id] 
+        product.cantidad++
+        carrito[e.target.dataset.id] = {...product}
         crearCarrito()
     }
 
     //si la clase es btn danger - (acción de restar)
     if(e.target.classList.contains('material-symbols-outlined')) {
-        /* const producto = carrito[e.target.dataset.id] 
-        producto.cantidad == 0
+        carrito[e.target.dataset.id]
+        const product = carrito[e.target.dataset.id] 
+        product.cantidad === 0
         //desaparecer el producto
-        if(producto.cantidad == 0) { */
+        if(product.cantidad == 0) { 
             delete carrito[e.target.dataset.id]
-        /* } */
+        }
         crearCarrito()
     }
 
     e.stopPropagation()
 
-
-
 }
 
 
 
-console.log(addCarrito);
 
 /* Crea las tarjetas de los servicios */
 let renderLaundry = document.createElement('div');
@@ -235,7 +233,7 @@ storageLaundry.forEach (product => {
     
 })
 
-console.log(localStorage.getItem('laundry'));
+/* console.log(localStorage.getItem('laundry')); */
 
 const renderFormRecoleccion = () => {
     formRecoleccion.innerHTML = ''
@@ -258,7 +256,9 @@ const renderFormRecoleccion = () => {
             <label for="Phone">Celular:</label>
             <input type="number" id="phone" name="phone"><br>
         </form>
-        `
+        `;
         return
     }
 }
+
+console.log(formRecoleccion);
