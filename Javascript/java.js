@@ -8,6 +8,7 @@ const footer = document.getElementById( 'footer' );
 //Constante de div donde se colocaran la galería de servicios
 const laundryCard = document.getElementById('laundry-card');
 
+const formRecoleccion = document.getElementById('form-recoleccion');
 //Constante templateFooter
 const templateFooter = document.getElementById( 'template-footer' ).content;
 //Constante templateCarrito
@@ -75,11 +76,13 @@ const laundry = [
     }
 ] 
 
-
+localStorage.setItem('laundry',JSON.stringify(laundry));
+localStorage.setItem('carrito',JSON.stringify(carrito));
 
 //eventos
-cards.addEventListener('click', e => {
+laundryCard.addEventListener('click', e => {
     //función par agregar al carrito
+    console.log('estoy haciendo click')
     addCarrito(e)
 })
 
@@ -133,10 +136,11 @@ const crearCarrito = () => {
         templateCarrito.querySelectorAll('td')[0].textContent = producto.title
         /* cantidad pero entramos a querySelectorAll 1 para entrar al segundo td */
         templateCarrito.querySelectorAll('td')[1].textContent = producto.cantidad
+        templateCarrito.querySelectorAll('td')[2].textContent = producto.precio
         /* boton menos */
         templateCarrito.querySelector('.btn-danger').dataset.id = producto.id
         /* precio va a multiplicar la cantidad por el precio*/
-        templateCarrito.querySelector('span').textContent = producto.cantidad * producto.precio
+        templateCarrito.querySelector('span').textContent = producto.cantidad * producto.precio.split('$').join('')
 
         const clone = templateCarrito.cloneNode(true)
         fragment.appendChild(clone)
@@ -161,7 +165,7 @@ const cambiarFooter = () => {
     /* sumando cantidad */
     const nCantidad = Object.values(carrito).reduce((acc, { cantidad }) => acc + cantidad, 0)
     /* multiplicando cantidad por precio */
-    const nPrecio = Object.values(carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio,0)
+    const nPrecio = Object.values(carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio.split('$').join(''),0)
 
     //para que aparezca
     templateFooter.querySelectorAll('td')[0].textContent = nCantidad
@@ -193,13 +197,13 @@ const btnAccion = e => {
     }
 
     //si la clase es btn danger - (acción de restar)
-    if(e.target.classList.contains('btn-danger')) {
-        const producto = carrito[e.target.dataset.id] 
-        producto.cantidad--
+    if(e.target.classList.contains('material-symbols-outlined')) {
+        /* const producto = carrito[e.target.dataset.id] 
+        producto.cantidad == 0
         //desaparecer el producto
-        if(producto.cantidad == 0) {
+        if(producto.cantidad == 0) { */
             delete carrito[e.target.dataset.id]
-        }
+        /* } */
         crearCarrito()
     }
 
@@ -216,7 +220,9 @@ console.log(addCarrito);
 /* Crea las tarjetas de los servicios */
 let renderLaundry = document.createElement('div');
 
-laundry.forEach (product => {
+let storageLaundry = JSON.parse(localStorage.getItem('laundry'));
+
+storageLaundry.forEach (product => {
     laundryCard.innerHTML+=`<div class= "tarjeta">
                             <img src = "${product.ThumbnailUrl}" alt= "${product.altImg}" width= "200px"/>
                             <button class="btn-agregar" data-id="${product.id}">Agregar</button>
@@ -228,3 +234,31 @@ laundry.forEach (product => {
     laundryCard.appendChild(renderLaundry);
     
 })
+
+console.log(localStorage.getItem('laundry'));
+
+const renderFormRecoleccion = () => {
+    formRecoleccion.innerHTML = ''
+    //si el carrito es mayor a 0
+    if(Object.keys(carrito).length > 0){
+        formRecoleccion.innerHTML = `
+        <form action="recoleccion">
+            <label for="fname">Nombre:</label> 
+            <input type="text" id="fname" name="fname"><br>
+            <label for="lname">Apellidos:</label> 
+            <input type="text" id="lname" name="lname"><br>
+            <label for="adress">Dirección:</label>
+            <input type="text" id="adress" name="adress"><br>
+            <label for="Colonia">Colonia:</label>
+            <input type="text" id="colonia" name="colonia"><br>
+            <label for="City">Ciudad:</label>
+            <input type="text" id="city" name="city"><br>
+            <label for="BetweenAdress">Entre que calles</label>
+            <input type="text" id="betweenAdress" name="betweenAdress"><br>
+            <label for="Phone">Celular:</label>
+            <input type="number" id="phone" name="phone"><br>
+        </form>
+        `
+        return
+    }
+}
