@@ -16,12 +16,8 @@ const templateCarrito = document.getElementById( 'template-carrito' ).content;
 //Constante de una memoria fragment
 const fragment = document.createDocumentFragment();
 
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-
-
-/* -----Declaraciones de variables ------ */
-//Carrito
-let carrito = {};
 
 /* ------Array de productos ----- */
 const laundry = [
@@ -77,8 +73,9 @@ const laundry = [
 ] 
 
 localStorage.setItem('laundry',JSON.stringify(laundry));
+localStorage.setItem('carrito',JSON.stringify(carrito));
 
-
+console.log(...laundry);
 //eventos
 laundryCard.addEventListener('click', e => {
     //función par agregar al carrito
@@ -88,7 +85,7 @@ laundryCard.addEventListener('click', e => {
 
 items.addEventListener('click', e =>{
     btnAccion(e)
-})
+}) 
 
 // Función de  poner las cosas en el carrito
 
@@ -100,7 +97,7 @@ const addCarrito = e =>{
         setCarrito(e.target.parentElement)
     }
     //detener cualquier otro evento que se pueda desarrollar 
-    e.stopPropagation()
+    e.stopPropagation() 
 }
 
 const setCarrito = objeto => {
@@ -117,11 +114,11 @@ const setCarrito = objeto => {
     if (carrito.hasOwnProperty(product.id)){
         //si se esta duplicando el producto id aumenta 1 a cantidad
         product.cantidad = carrito[product.id].cantidad + 1
-    }
+    } 
 
     //estamos haciendo una copia de lo que hay en producto
     carrito[product.id] = {...product}
-    crearCarrito()
+    crearCarrito(carrito)
 
 }
 
@@ -178,10 +175,11 @@ const cambiarFooter = () => {
     /* Botón vaciar carrito */
     const btnVaciar = document.getElementById('vaciar-carrito')
     btnVaciar.addEventListener('click', () => {
-        carrito = {}
+        carrito = []
         crearCarrito()
     })
 }
+
 
 /* boton accion */
 
@@ -197,10 +195,10 @@ const btnAccion = e => {
     }
 
     //si la clase es btn danger - (acción de restar)
-    if(e.target.classList.contains('material-symbols-outlined')) {
+    if(e.target.classList('.btn-danger')) {
         carrito[e.target.dataset.id]
         const product = carrito[e.target.dataset.id] 
-        product.cantidad === 0
+        product.cantidad--
         //desaparecer el producto
         if(product.cantidad == 0) { 
             delete carrito[e.target.dataset.id]
@@ -234,12 +232,9 @@ storageLaundry.forEach (product => {
 })
 
 /* console.log(localStorage.getItem('laundry')); */
-
-const renderFormRecoleccion = () => {
-    formRecoleccion.innerHTML = ''
-    //si el carrito es mayor a 0
-    if(Object.keys(carrito).length > 0){
-        formRecoleccion.innerHTML = `
+function renderFormRecoleccion () {
+    if(carrito.length > 0){
+        formRecoleccion.innerHTML= `
         <form action="recoleccion">
             <label for="fname">Nombre:</label> 
             <input type="text" id="fname" name="fname"><br>
@@ -257,8 +252,13 @@ const renderFormRecoleccion = () => {
             <input type="number" id="phone" name="phone"><br>
         </form>
         `;
-        return
-    }
+    }  
 }
 
-console.log(formRecoleccion);
+renderFormRecoleccion();
+
+let cotizar = prompt('¿Deseas cotizar algún servicio de lavandería?');
+
+const cotizacion = (cotizar === 'si' || cotizar ==='SI' || cotizar === 'Si') ? true : false;
+
+cotizacion ? alert('Empieza a cotizar ahora!') : alert('Vuelve pronto, estamos para ayudarte.');
