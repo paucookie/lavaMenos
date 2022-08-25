@@ -192,6 +192,13 @@ const btnAccion = e => {
         product.cantidad++
         carrito[e.target.dataset.id] = {...product}
         crearCarrito()
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Tu servicio ha sido agregado a la cotización.',
+            showConfirmButton: false,
+            timer: 1500
+            })
     }
 
     //si la clase es btn danger - (acción de restar)
@@ -257,8 +264,11 @@ function renderFormRecoleccion () {
 
 renderFormRecoleccion();
 
-let cotizar = prompt('¿Deseas cotizar algún servicio de lavandería?');
+/* let cotizar = prompt('¿Deseas cotizar algún servicio de lavandería?');
 
 const cotizacion = (cotizar === 'si' || cotizar ==='SI' || cotizar === 'Si') ? true : false;
 
-cotizacion ? alert('Empieza a cotizar ahora!') : alert('Vuelve pronto, estamos para ayudarte.');
+cotizacion ? alert('Empieza a cotizar ahora!') : alert('Vuelve pronto, estamos para ayudarte.'); */
+
+
+
