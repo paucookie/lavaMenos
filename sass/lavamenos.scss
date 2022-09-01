@@ -98,3 +98,18 @@ body {
                          "cot";
     }
 }
+
+.comentarios {
+    h4{
+        margin-left: 2rem;
+        text-align: center;
+    }
+    li{
+        list-style: none;
+        text-align: center;
+        border-bottom: 0.5px grey;
+        color: map-get($map: $colors, $key: bluedark);
+        font-weight: map-get($map: $weights, $key: light);
+        font-size: small;
+    }
+}

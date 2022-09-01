@@ -271,4 +271,23 @@ const cotizacion = (cotizar === 'si' || cotizar ==='SI' || cotizar === 'Si') ? t
 cotizacion ? alert('Empieza a cotizar ahora!') : alert('Vuelve pronto, estamos para ayudarte.'); */
 
 
+const API_URL = 'https://jsonplaceholder.typicode.com';
+const HTMLResponse = document.querySelector('#response');
+const ul = document.createElement('ul');
+
+fetch(`${API_URL}/comments`)
+    .then((response) => response.json())
+    .then((comments) => {
+        comments.forEach( comments => {
+            let elem = document.createElement('li');
+            elem.appendChild(
+                document.createTextNode(`${comments.name} ${comments.email}`)
+            );
+            ul.appendChild(elem);
+        });
+        HTMLResponse.appendChild(ul);
+    });
+
+
+
 

@@ -128,4 +128,18 @@ body {
         grid-template-areas: "nom" "prod" "cot";
   }
 }
+
+.comentarios h4 {
+  margin-left: 2rem;
+  text-align: center;
+}
+
+.comentarios li {
+  list-style: none;
+  text-align: center;
+  border-bottom: 0.5px grey;
+  color: #121e4d;
+  font-weight: 100;
+  font-size: small;
+}
 /*# sourceMappingURL=lavamenos.css.map */
