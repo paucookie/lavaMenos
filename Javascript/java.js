@@ -15,6 +15,7 @@ const templateFooter = document.getElementById( 'template-footer' ).content;
 const templateCarrito = document.getElementById( 'template-carrito' ).content;
 //Constante de una memoria fragment
 const fragment = document.createDocumentFragment();
+const trashcan = document.getElementById( 'trashcan' );
 
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
@@ -202,7 +203,7 @@ const btnAccion = e => {
     }
 
     //si la clase es btn danger - (acción de restar)
-    if(e.target.classList('.btn-danger')) {
+    if(e.target.classList.contains('material-symbols-outlined')) {
         carrito[e.target.dataset.id]
         const product = carrito[e.target.dataset.id] 
         product.cantidad--
@@ -263,6 +264,7 @@ function renderFormRecoleccion () {
 }
 
 renderFormRecoleccion();
+
 
 /* let cotizar = prompt('¿Deseas cotizar algún servicio de lavandería?');
 
